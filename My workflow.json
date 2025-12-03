@@ -1,0 +1,109 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "11YX-Hw8uOetVzHANdWh25jYhzYQdOrB5-nQKGZcPF9k",
+          "mode": "list",
+          "cachedResultName": "action",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11YX-Hw8uOetVzHANdWh25jYhzYQdOrB5-nQKGZcPF9k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/11YX-Hw8uOetVzHANdWh25jYhzYQdOrB5-nQKGZcPF9k/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        784,
+        96
+      ],
+      "id": "12384750-515d-41f6-b87a-2c1d538b7360",
+      "name": "Get row(s) in sheet1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GAcu27g0dXNLEl0a",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "Your Task for Today",
+        "message": "=<p>Hi,</p><p>Below is your task for today:</p><p>{{ $json.task }}</p>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1008,
+        96
+      ],
+      "id": "e9e33658-82be-4a8a-b5fa-b12f548656b4",
+      "name": "Send a message",
+      "webhookId": "0186a834-85c2-4876-95a7-209d0e029083",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "4gnRg5ubVceJYHod",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "23138e8e-07e8-449a-bb5a-35a68a01b8d3",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        560,
+        96
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cba002af-06d8-4eb2-8f21-0e36ded81348",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7d1c8a310e133cdad07feca1ed1a638bd5c79fa8b37c8ee39decfba9f811ec43"
+  },
+  "id": "9EQIwKwLwN18Jorf",
+  "tags": []
+}
